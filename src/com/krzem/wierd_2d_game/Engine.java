@@ -48,7 +48,6 @@ public class Engine{
 	public void init(){
 		this.KEYBOARD=new Keyboard(this);
 		this.IMAGES=new ImageLoader(this);
-		this.IMAGES.load("C:\\K\\Coding\\projects\\Java-Wierd_2D_Game\\com\\krzem\\wierd_2d_game\\assets\\tex");
 		this.WORLD=new World(this);
 		this.WORLD.create("1.world");
 	}

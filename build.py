@@ -15,23 +15,37 @@ if (os.path.exists("build")):
 		os.rmdir(k)
 else:
 	os.mkdir("build")
-cd=os.getcwd()
-os.chdir("src")
 jfl=[]
-for r,_,fl in os.walk("."):
+ml=[]
+for r,_,fl in os.walk("src"):
+	r=r.replace("\\","/").strip("/")+"/"
 	for f in fl:
 		if (f[-5:]==".java"):
-			jfl.append(os.path.join(r,f))
-if (subprocess.run(["javac","-d","../build"]+jfl).returncode!=0):
+			jfl.append(r+f)
+		if (f[-4:]==".jar"):
+			ml.append(r+f)
+if (subprocess.run(["javac","-encoding","utf8","-cp",(";" if os.name=="nt" else ":").join(ml),"-d","build"]+jfl).returncode!=0):
 	sys.exit(1)
-os.chdir(cd)
 with zipfile.ZipFile("build/wierd_2d_game.jar","w") as zf:
 	print("Writing: META-INF/MANIFEST.MF")
 	zf.write("manifest.mf",arcname="META-INF/MANIFEST.MF")
 	for r,_,fl in os.walk("build"):
+		r=r.replace("\\","/").strip("/")+"/"
 		for f in fl:
 			if (f[-6:]==".class"):
-				print(f"Writing: {os.path.join(r,f)[6:].replace(chr(92),'/')}")
-				zf.write(os.path.join(r,f),os.path.join(r,f)[6:])
+				print(f"Writing: {(r+f)[6:]}")
+				zf.write(r+f,arcname=(r+f)[6:])
+	for k in ml:
+		with zipfile.ZipFile(k,"r") as jf:
+			for e in jf.namelist():
+				if (e[-1] not in "\\/" and e.lower()[:8]!="meta-inf"):
+					print(f"Writing: {e}")
+					zf.writestr(e,jf.read(e))
+	for r,_,fl in os.walk("rsrc"):
+		r=r.replace("\\","/").strip("/")+"/"
+		for f in fl:
+			if (f[-4:]==".png"):
+				print(f"Writing: {r+f}")
+				zf.write(r+f,arcname=r+f)
 if ("--run" in sys.argv):
-	subprocess.run(["java","-jar","build/wierd_2d_game.jar"])
+	subprocess.run(["java","-Dfile.encoding=UTF8","-jar","build/wierd_2d_game.jar","data/1.world"])

@@ -4,6 +4,7 @@ package com.krzem.wierd_2d_game;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.InputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,28 +25,17 @@ public class ImageLoader{
 
 
 
-	public void load(String d){
-		this.load(d,"");
-	}
-	public void load(String d,String p){
-		for (File f:new File(d).listFiles()){
+	public BufferedImage get(String n){
+		if (this.imgl.get(n)==null){
 			try{
-				this.imgl.put(p+f.getName(),(BufferedImage)ImageIO.read(f));
+				InputStream is=ImageLoader.class.getResourceAsStream("/rsrc/"+n);
+				this.imgl.put(n,(BufferedImage)ImageIO.read(is));
+				is.close();
 			}
-			catch (IOException e){
-				if (f.getName().endsWith(".png")){
-					e.printStackTrace();
-				}
-				else{
-					this.load(d+"\\"+f.getName(),f.getName()+"/");
-				}
+			catch (Exception e){
+				e.printStackTrace();
 			}
 		}
-	}
-
-
-
-	public BufferedImage get(String n){
 		return this.imgl.get(n);
 	}
 }
