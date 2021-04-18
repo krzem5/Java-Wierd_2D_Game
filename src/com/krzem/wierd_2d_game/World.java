@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class World{
 	public Engine engine;
-	public String SAVES_DIR="C:\\K\\Coding\\projects\\Java-Wierd_2D_Game\\com\\krzem\\wierd_2d_game\\assets\\data\\";
+	public String SAVES_DIR="data/";
 	public int BLOCK_WIDTH;
 	public int BLOCK_HEIGHT;
 	public Vec2 OFFSET;
@@ -109,6 +109,7 @@ public class World{
 					this.blocks.add(new BaseBlock(this.engine,bn,bx,by));
 				}
 			}
+			fr.close();
 		}
 		catch(FileNotFoundException e){
 			e.printStackTrace();

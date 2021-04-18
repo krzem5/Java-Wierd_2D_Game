@@ -8,24 +8,26 @@ import javax.swing.JComponent;
 
 
 public class Canvas extends JComponent{
-	Engine parent;
+	Engine cls;
 
 
 
 	public Canvas(Engine p){
-		this.parent=p;
+		this.cls=p;
 	}
 
 
 
+	@Override
 	public void paintComponent(Graphics g){
-		this.parent.draw(g);
+		this.cls.draw(g);
 		super.paintComponent(g);
 		g.dispose();
 	}
 
 
 
+	@Override
 	public void addNotify(){
 		super.addNotify();
 		this.requestFocus();

@@ -62,20 +62,25 @@ public class Engine{
 		this.canvas.setPreferredSize(new Dimension(WINDOW_SIZE.width,WINDOW_SIZE.height));
 		Engine cls=this;
 		this.canvas.addMouseMotionListener(new MouseMotionAdapter(){
+			@Override
 			public void mouseMoved(MouseEvent e){
 				cls._mouse=e;
 			}
+			@Override
 			public void mouseDragged(MouseEvent e){
 				cls._mouse=e;
 			}
 		});
 		this.canvas.addKeyListener(new KeyListener(){
+			@Override
 			public void keyPressed(KeyEvent e){
 				cls.KEYBOARD.down(e);
 			}
+			@Override
 			public void keyReleased(KeyEvent e){
 				cls.KEYBOARD.up(e);
 			}
+			@Override
 			public void keyTyped(KeyEvent e){
 				cls.KEYBOARD.press(e);
 			}
@@ -92,11 +97,11 @@ public class Engine{
 			@Override
 			public void run(){
 				while (true){
-					Long s=System.currentTimeMillis();
+					long s=System.currentTimeMillis();
 					cls.update_events();
 					cls.update();
 					cls.canvas.repaint();
-					Long d=System.currentTimeMillis()-s;
+					long d=System.currentTimeMillis()-s;
 					if (d==0){
 						d=1L;
 					}
