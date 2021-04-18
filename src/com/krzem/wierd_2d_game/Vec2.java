@@ -24,6 +24,9 @@ public class Vec2{
 		this.x+=o.x;
 		this.y+=o.y;
 	}
+
+
+
 	public void add(int ox,int oy){
 		this.x+=ox;
 		this.y+=oy;
