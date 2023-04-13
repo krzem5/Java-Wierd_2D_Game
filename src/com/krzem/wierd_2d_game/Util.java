@@ -8,7 +8,7 @@ public class Util{
 	}
 
 
-	
+
 	public static boolean collisionLineRect(double lsx,double lsy,double lex,double ley,double rsx,double rsy,double rex,double rey){
 		return (Util.collisionLineLine(lsx,lsy,lex,ley,rsx,rsy,rsx,rey)||Util.collisionLineLine(lsx,lsy,lex,ley,rex,rsy,rex,rey)||Util.collisionLineLine(lsx,lsy,lex,ley,rsx,rsy,rex,rsy)||Util.collisionLineLine(lsx,lsy,lex,ley,rsx,rey,rex,rey)||(rsx<=lsx&&lsx<=rex&&rsy<=lsy&&lsy<=rey)||(rsx<=lex&&lex<=rex&&rsy<=ley&&ley<=rey));
 	}
